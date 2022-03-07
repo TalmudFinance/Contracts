@@ -501,7 +501,7 @@ contract ALM is ERC20Burnable, Ownable{
 
     function setMarketAddress(address addr) external onlyOwner {
         _marketAddress = addr;
-        emit MarketFeeSet(addr);
+        emit MarketAddressSet(addr);
     }
 
     function setRewardAddress(address addr) external onlyOwner {
@@ -545,12 +545,13 @@ contract ALM is ERC20Burnable, Ownable{
     event TransferFeeSet(uint256 value);
     event TradeFeeSet(uint256 value);
     event MarketFeeSet(uint256 value);
+    event MarketAddressSet(address addr);
     event RewardAddressSet(address addr);
     event RewardRenewFeeSet(bool value);
     event RenewPriceOpenSet(bool value);
     event MarkPriceSet(uint256 value);
     event InviterSet(address inviter,address addr);
-    event BlackListSet(address addr, uint256 value);
+    event BlackListSet(address addr, bool value);
     event TokenMinted(address _mintAddress,uint256 amount);
 
 }
