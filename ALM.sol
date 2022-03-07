@@ -310,7 +310,7 @@ contract ALM is ERC20Burnable, Ownable{
 
     IUniswapV2Router02 public uniswapV2Router;
     address public uniswapV2Pair;
-    address public USDTToken = 0x55d398326f99059fF775485246999027B3197955;
+    address public constant USDTToken = 0x55d398326f99059fF775485246999027B3197955;
 
     uint256 public rewardFee = 5;
     uint256 public marketFee = 5;
@@ -324,8 +324,8 @@ contract ALM is ERC20Burnable, Ownable{
 
     address public _marketAddress = 0x3125646ad77efb1B02d8Aa8e69d3C628d0d8D209;
     address public _rewardAddress;
-    address public _operationAddress = 0x2402B0C8418A319E640D11e17F8861867cB8a386;
-    address public _communityAddress = 0xdfBA4dEbcCf551Dc388aE006adfAfdDFD0eeb3AB;
+    address public constant _operationAddress = 0x2402B0C8418A319E640D11e17F8861867cB8a386;
+    address public constant _communityAddress = 0xdfBA4dEbcCf551Dc388aE006adfAfdDFD0eeb3AB;
 
     mapping(address => bool) public _isExcludedFromFees;
     mapping(address => address) public inviter;
@@ -375,7 +375,7 @@ contract ALM is ERC20Burnable, Ownable{
         address to,
         uint256 amount
     ) internal override {
-        require(!_blackList[msg.sender]);
+        require(!_blackList[msg.sender],"ERC20: transfer unvailable");
         require(from != address(0), "ERC20: transfer from the zero address");
         require(to != address(0), "ERC20: transfer to the zero address");
         if (amount == 0) {
@@ -476,55 +476,81 @@ contract ALM is ERC20Burnable, Ownable{
 
     function setRewardFee(uint256 value) external onlyOwner {
         rewardFee = value;
+        emit RewardFeeSet(value);
     }
 
     function setBurnFee(uint256 value) external onlyOwner {
         burnFee = value;
+        emit BurnFeeSet(value);
     }
 
     function setMarketFee(uint256 value) external onlyOwner {
         marketFee = value;
+        emit MarketFeeSet(value);
     }
 
     function setTransferFee(uint256 value) external onlyOwner {
         transferFee = value;
+        emit TransferFeeSet(value);
     }
 
     function setTradeFee(uint256 value) external onlyOwner {
         tradeFee = value;
+        emit TradeFeeSet(value);
     }
 
     function setMarketAddress(address addr) external onlyOwner {
         _marketAddress = addr;
+        emit MarketFeeSet(value);
     }
 
     function setRewardAddress(address addr) external onlyOwner {
         _rewardAddress = addr;
+        emit RewardAddressSet(value);
     }
 
     function setRewardRenew(bool value) external onlyOwner {
         rewardRenew = value;
+        emit RewardRenewFeeSet(value);
     }
 
     function setRenewPriceOpen(bool value) external onlyOwner {
         renewPriceOpen = value;
+        emit RenewPriceOpenSet(value);
     }
 
     function setMarkPrice(uint256 value) external onlyOwner {
         ALMMarkPrice = value;
+        emit MarkPriceSet(value);
     }
 
     function setInviter(address addr,address addr_) external onlyOwner {
         inviter[addr] = addr_;
+        emit InviterSet(addr,addr_);
     }
 
     function setBlackList(address addr,bool value) external onlyOwner {
         _blackList[addr] = value;
+        emit BlackList(addr,value);
     }
 
     function mintToken(address _mintAddress,uint256 amount) external onlyOwner {
-        require(totalSupply() + amount <= 28800 * 10**4 * 10 ** 18);
+        require(totalSupply() + amount <= 28800 * 10**4 * 10 ** 18,"ERC20: Token Amount Exceed");
         _mint(_mintAddress, amount);
+        emit TokenMinted(_mintAddress,amount);
     }
+
+    event RewardFeeSet(uint256 value);
+    event setBurnFee(uint256 value);
+    event setTransferFee(uint256 value);
+    event setTradeFee(uint256 value);
+    event MarketFeeSet(uint256 value);
+    event RewardAddressSet(address addr);
+    event RewardRenewFeeSet(bool value);
+    event RenewPriceOpenSet(bool value);
+    event MarkPriceSet(uint256 value);
+    event InviterSet(address inviter,address addr);
+    event BlackList(address addr, uint256 value);
+    event TokenMinted(address _mintAddress,uint256 amount);
 
 }
