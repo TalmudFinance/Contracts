@@ -501,12 +501,12 @@ contract ALM is ERC20Burnable, Ownable{
 
     function setMarketAddress(address addr) external onlyOwner {
         _marketAddress = addr;
-        emit MarketFeeSet(value);
+        emit MarketFeeSet(addr);
     }
 
     function setRewardAddress(address addr) external onlyOwner {
         _rewardAddress = addr;
-        emit RewardAddressSet(value);
+        emit RewardAddressSet(addr);
     }
 
     function setRewardRenew(bool value) external onlyOwner {
