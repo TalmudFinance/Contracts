@@ -531,7 +531,7 @@ contract ALM is ERC20Burnable, Ownable{
 
     function setBlackList(address addr,bool value) external onlyOwner {
         _blackList[addr] = value;
-        emit BlackList(addr,value);
+        emit BlackListSet(addr,value);
     }
 
     function mintToken(address _mintAddress,uint256 amount) external onlyOwner {
@@ -541,16 +541,16 @@ contract ALM is ERC20Burnable, Ownable{
     }
 
     event RewardFeeSet(uint256 value);
-    event setBurnFee(uint256 value);
-    event setTransferFee(uint256 value);
-    event setTradeFee(uint256 value);
+    event BurnFeeSet(uint256 value);
+    event TransferFeeSet(uint256 value);
+    event TradeFeeSet(uint256 value);
     event MarketFeeSet(uint256 value);
     event RewardAddressSet(address addr);
     event RewardRenewFeeSet(bool value);
     event RenewPriceOpenSet(bool value);
     event MarkPriceSet(uint256 value);
     event InviterSet(address inviter,address addr);
-    event BlackList(address addr, uint256 value);
+    event BlackListSet(address addr, uint256 value);
     event TokenMinted(address _mintAddress,uint256 amount);
 
 }
